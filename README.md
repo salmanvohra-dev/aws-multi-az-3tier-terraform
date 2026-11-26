@@ -10,7 +10,9 @@ The platform implements **S3 + DynamoDB** remote state locking for safe team col
 
 ## 🗺️ System Architecture
 
-<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/20aff6cf-0818-4ff3-a5bb-2c5f035d82e7" />
+<p align="center">
+  <img width="1376" height="768" alt="AWS Multi-AZ 3-Tier Enterprise Architecture" src="https://github.com/user-attachments/assets/20aff6cf-0818-4ff3-a5bb-2c5f035d82e7" />
+</p>
 
 ---
 
@@ -37,16 +39,6 @@ The platform implements **S3 + DynamoDB** remote state locking for safe team col
 * **Modular & Reusable Terraform Design:** Built with decoupled, environment-agnostic Terraform modules (`dev`, `staging`, `prod`) using `terraform.tfvars` and strict input validation.
 * **Bulletproof Remote State & CI/CD:** Configured S3 bucket versioning with server-side encryption (SSE-KMS) and DynamoDB locking to prevent concurrent state corruption during automated GitHub Actions runs.
 * **Observability & Automated Backup:** Enabled VPC Flow Logs streaming to CloudWatch Logs for security auditing and configured AWS Backup plans with automated daily snapshots.
-
----
-
-## 🔥 Infrastructure Engineering & Troubleshooting Highlights
-
-| # | Scenario / Challenge | Root Cause | Resolution |
-| :--- | :--- | :--- | :--- |
-| **1** | **Terraform State Lock Contention** | Concurrent CI/CD runs attempted simultaneous state modifications on the same workspace. | Configured DynamoDB `LockID` table with S3 backend and serialized GitHub Actions concurrency groups. |
-| **2** | **Asymmetric Routing & NAT Failover** | Single NAT Gateway created a single point of failure and cross-AZ data transfer costs. | Deployed dedicated per-AZ NAT Gateways with isolated private route tables per Availability Zone. |
-| **3** | **VPC Teardown `DependencyViolation`** | Residual Elastic Network Interfaces (ENIs) and ALB target attachments blocked `terraform destroy`. | Added explicit `create_before_destroy` lifecycle rules and ordered resource dependencies cleanly. |
 
 ---
 
