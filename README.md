@@ -10,9 +10,7 @@ The platform implements **S3 + DynamoDB** remote state locking for safe team col
 
 ## 🗺️ System Architecture
 
-<p align="center">
-  <img width="1376" height="768" alt="AWS Multi-AZ 3-Tier Enterprise Architecture" src="YOUR_GITHUB_IMAGE_LINK_HERE" />
-</p>
+<img width="1376" height="768" alt="image" src="https://github.com/user-attachments/assets/20aff6cf-0818-4ff3-a5bb-2c5f035d82e7" />
 
 ---
 
